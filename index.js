@@ -29,7 +29,7 @@ hint - you should be looking at the stage key inside of the objects
 
 function getFinals(data) {
    const finalTeamData = data.filter(item => item.Stage === 'Final');
-   console.log('task2', finalTeamData);
+//    console.log('task2', finalTeamData);
    return finalTeamData;
 }
 getFinals(fifaData);
@@ -44,7 +44,7 @@ Use the higher-order function called getYears to do the following:
 
 function getYears(arr, callback) {
     const years = callback(arr).map(item => item.Year);
-    console.log('task3', years);
+    // console.log('task3', years);
     return years;
 }
 getYears(fifaData, getFinals);
@@ -65,7 +65,7 @@ function getWinners(arr, callback) {
         return item["Away Team Name"]
     }
     });
-    console.log('task4', winners);
+    // console.log('task4', winners);
     return winners;
 }
 getWinners(fifaData, getFinals);
@@ -82,10 +82,17 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
+function getWinnersByYear(arr, getYearscb, getWinnerscb) {
+    let yearWinners = [];
+    let years = getYearscb(arr);
+    let winners = getWinnerscb(arr);
+    years.forEach((item, index) => {
+        yearWinners.push(`In ${item}, ${winners[index]} won the world cup!`);
+    });
+    return yearWinners;
 }
-
+    
+// getWinnersByYear(fifaData, getYears, getWinners)
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -98,10 +105,14 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
+function getAverageGoals(finalsData) {
+   const averageHomeGoals = (finalsData.reduce((acc, item) => {
+       return acc + item['Home Team Goals'] + item['Away Team Goals'] ;
+   }, 0) / finalsData.length).toFixed(2);
+   console.log('task6 home', averageHomeGoals);
+   return averageHomeGoals;
 }
-
+getAverageGoals(getFinals(fifaData));
 
 
 
